@@ -1,4 +1,4 @@
-# ✅ Tasky - Project Management SaaS
+# ✅ Tasky - Task Manager
 
 Tasky is a powerful, scalable multi-tenancy project management platform built for modern teams and real-world B2B collaboration. With rich features like task management, project tracking, role-based access control, and data analytics, Tasky enables organizations to streamline productivity, enhance collaboration, and manage projects efficiently across multiple workspaces.
 
