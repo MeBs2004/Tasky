@@ -1,10 +1,10 @@
-import { Server } from "socket.io";
-import jwt from "jsonwebtoken";
-import { config } from "./app.config.js";
+const { Server } = require("socket.io");
+const jwt = require("jsonwebtoken");
+const { config } = require("./app.config");
 
 let io;
 
-export const initializeSocket = (server) => {
+const initializeSocket = (server) => {
   io = new Server(server, {
     cors: {
       origin:
@@ -74,30 +74,30 @@ export const initializeSocket = (server) => {
   return io;
 };
 
-export const getIO = () => io;
+const getIO = () => io;
 
 // Emit events
-export const emitTaskCreated = (workspaceId, taskData) => {
+const emitTaskCreated = (workspaceId, taskData) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("task:created", taskData);
   }
 };
 
-export const emitTaskUpdated = (workspaceId, taskId, taskData) => {
+const emitTaskUpdated = (workspaceId, taskId, taskData) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("task:updated", taskData);
     io.to(`task:${taskId}`).emit("task:updated", taskData);
   }
 };
 
-export const emitTaskDeleted = (workspaceId, taskId) => {
+const emitTaskDeleted = (workspaceId, taskId) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("task:deleted", { taskId });
     io.to(`task:${taskId}`).emit("task:deleted", { taskId });
   }
 };
 
-export const emitTaskStatusChanged = (workspaceId, taskId, status) => {
+const emitTaskStatusChanged = (workspaceId, taskId, status) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("task:status-changed", {
       taskId,
@@ -107,7 +107,7 @@ export const emitTaskStatusChanged = (workspaceId, taskId, status) => {
   }
 };
 
-export const emitTaskAssigned = (workspaceId, taskId, assignedTo) => {
+const emitTaskAssigned = (workspaceId, taskId, assignedTo) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("task:assigned", {
       taskId,
@@ -116,7 +116,7 @@ export const emitTaskAssigned = (workspaceId, taskId, assignedTo) => {
   }
 };
 
-export const emitCommentAdded = (workspaceId, taskId, commentData) => {
+const emitCommentAdded = (workspaceId, taskId, commentData) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("comment:added", {
       taskId,
@@ -126,7 +126,7 @@ export const emitCommentAdded = (workspaceId, taskId, commentData) => {
   }
 };
 
-export const emitCommentUpdated = (workspaceId, taskId, commentData) => {
+const emitCommentUpdated = (workspaceId, taskId, commentData) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("comment:updated", {
       taskId,
@@ -136,7 +136,7 @@ export const emitCommentUpdated = (workspaceId, taskId, commentData) => {
   }
 };
 
-export const emitCommentDeleted = (workspaceId, taskId, commentId) => {
+const emitCommentDeleted = (workspaceId, taskId, commentId) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("comment:deleted", {
       taskId,
@@ -146,38 +146,57 @@ export const emitCommentDeleted = (workspaceId, taskId, commentId) => {
   }
 };
 
-export const emitNotification = (userId, notificationData) => {
+const emitNotification = (userId, notificationData) => {
   if (io) {
     io.to(`user:${userId}`).emit("notification:received", notificationData);
   }
 };
 
-export const emitMemberJoined = (workspaceId, memberData) => {
+const emitMemberJoined = (workspaceId, memberData) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("member:joined", memberData);
   }
 };
 
-export const emitMemberLeft = (workspaceId, memberId) => {
+const emitMemberLeft = (workspaceId, memberId) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("member:left", { memberId });
   }
 };
 
-export const emitProjectCreated = (workspaceId, projectData) => {
+const emitProjectCreated = (workspaceId, projectData) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("project:created", projectData);
   }
 };
 
-export const emitProjectUpdated = (workspaceId, projectData) => {
+const emitProjectUpdated = (workspaceId, projectData) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("project:updated", projectData);
   }
 };
 
-export const emitProjectDeleted = (workspaceId, projectId) => {
+const emitProjectDeleted = (workspaceId, projectId) => {
   if (io) {
     io.to(`workspace:${workspaceId}`).emit("project:deleted", { projectId });
   }
+};
+
+module.exports = {
+  initializeSocket,
+  getIO,
+  emitTaskCreated,
+  emitTaskUpdated,
+  emitTaskDeleted,
+  emitTaskStatusChanged,
+  emitTaskAssigned,
+  emitCommentAdded,
+  emitCommentUpdated,
+  emitCommentDeleted,
+  emitNotification,
+  emitMemberJoined,
+  emitMemberLeft,
+  emitProjectCreated,
+  emitProjectUpdated,
+  emitProjectDeleted,
 };

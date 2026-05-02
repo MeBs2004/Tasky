@@ -1,10 +1,10 @@
-import Comment from "../models/comment.model.js";
-import Task from "../models/task.model.js";
-import { AppError } from "../utils/appError.js";
-import { HTTPSTATUS } from "../config/http.config.js";
+const Comment = require("../models/comment.model");
+const Task = require("../models/task.model");
+const { AppError } = require("../utils/appError");
+const { HTTPSTATUS } = require("../config/http.config");
 
 // Get all comments for a task
-export const getCommentsByTaskController = async (req, res, next) => {
+const getCommentsByTaskController = async (req, res, next) => {
   try {
     const { taskId } = req.params;
     const { userId, workspaceId } = req.user;
@@ -44,7 +44,7 @@ export const getCommentsByTaskController = async (req, res, next) => {
 };
 
 // Create a comment
-export const createCommentController = async (req, res, next) => {
+const createCommentController = async (req, res, next) => {
   try {
     const { taskId } = req.params;
     const { content, mentions } = req.body;
@@ -91,7 +91,7 @@ export const createCommentController = async (req, res, next) => {
 };
 
 // Update a comment
-export const updateCommentController = async (req, res, next) => {
+const updateCommentController = async (req, res, next) => {
   try {
     const { commentId } = req.params;
     const { content, mentions } = req.body;
@@ -134,7 +134,7 @@ export const updateCommentController = async (req, res, next) => {
 };
 
 // Delete a comment
-export const deleteCommentController = async (req, res, next) => {
+const deleteCommentController = async (req, res, next) => {
   try {
     const { commentId } = req.params;
     const { userId } = req.user;
@@ -166,4 +166,11 @@ export const deleteCommentController = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+module.exports = {
+  getCommentsByTaskController,
+  createCommentController,
+  updateCommentController,
+  deleteCommentController,
 };

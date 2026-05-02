@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const timeLogSchema = new mongoose.Schema(
   {
@@ -62,4 +62,4 @@ timeLogSchema.index({ userId: 1, date: -1 });
 
 const TimeLog = mongoose.model("TimeLog", timeLogSchema);
 
-export default TimeLog;
+module.exports = TimeLog;

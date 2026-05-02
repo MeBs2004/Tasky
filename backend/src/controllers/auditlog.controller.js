@@ -1,9 +1,9 @@
-import AuditLog from "../models/auditlog.model.js";
-import { AppError } from "../utils/appError.js";
-import { HTTPSTATUS } from "../config/http.config.js";
+const AuditLog = require("../models/auditlog.model");
+const { AppError } = require("../utils/appError");
+const { HTTPSTATUS } = require("../config/http.config");
 
 // Get audit logs
-export const getAuditLogsController = async (req, res, next) => {
+const getAuditLogsController = async (req, res, next) => {
   try {
     const { workspaceId, userId: requesterUserId } = req.user;
     const { resourceType, action, startDate, endDate, limit = 50, page = 1 } = req.query;
@@ -54,7 +54,7 @@ export const getAuditLogsController = async (req, res, next) => {
 };
 
 // Get audit logs for a specific resource
-export const getResourceAuditLogsController = async (req, res, next) => {
+const getResourceAuditLogsController = async (req, res, next) => {
   try {
     const { resourceType, resourceId } = req.params;
     const { workspaceId } = req.user;
@@ -94,7 +94,7 @@ export const getResourceAuditLogsController = async (req, res, next) => {
 };
 
 // Get user activity
-export const getUserActivityController = async (req, res, next) => {
+const getUserActivityController = async (req, res, next) => {
   try {
     const { workspaceId } = req.user;
     const { userId } = req.params;
@@ -129,4 +129,10 @@ export const getUserActivityController = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+module.exports = {
+  getAuditLogsController,
+  getResourceAuditLogsController,
+  getUserActivityController,
 };

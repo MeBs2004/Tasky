@@ -1,14 +1,14 @@
-import express from "express";
-import {
+const { Router } = require("express");
+const {
   addTimeLogController,
   getTimeLogsByTaskController,
   getTimeLogsByProjectController,
   getTimeLogsByUserController,
   updateTimeLogController,
   deleteTimeLogController,
-} from "../controllers/timelog.controller.js";
+} = require("../controllers/timelog.controller");
 
-const timeLogRoutes = express.Router();
+const timeLogRoutes = Router();
 
 // Add time log
 timeLogRoutes.post(
@@ -31,4 +31,4 @@ timeLogRoutes.put("/:timeLogId/update", updateTimeLogController);
 // Delete time log
 timeLogRoutes.delete("/:timeLogId/delete", deleteTimeLogController);
 
-export default timeLogRoutes;
+module.exports = timeLogRoutes;

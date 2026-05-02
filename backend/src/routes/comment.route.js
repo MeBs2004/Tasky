@@ -1,12 +1,12 @@
-import express from "express";
-import {
+const { Router } = require("express");
+const {
   getCommentsByTaskController,
   createCommentController,
   updateCommentController,
   deleteCommentController,
-} from "../controllers/comment.controller.js";
+} = require("../controllers/comment.controller");
 
-const commentRoutes = express.Router();
+const commentRoutes = Router();
 
 // Get all comments for a task
 commentRoutes.get("/task/:taskId", getCommentsByTaskController);
@@ -20,4 +20,4 @@ commentRoutes.put("/:commentId/update", updateCommentController);
 // Delete a comment
 commentRoutes.delete("/:commentId/delete", deleteCommentController);
 
-export default commentRoutes;
+module.exports = commentRoutes;

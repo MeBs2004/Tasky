@@ -1,11 +1,11 @@
-import express from "express";
-import {
+const { Router } = require("express");
+const {
   getAuditLogsController,
   getResourceAuditLogsController,
   getUserActivityController,
-} from "../controllers/auditlog.controller.js";
+} = require("../controllers/auditlog.controller");
 
-const auditLogRoutes = express.Router();
+const auditLogRoutes = Router();
 
 // Get all audit logs
 auditLogRoutes.get("/", getAuditLogsController);
@@ -16,4 +16,4 @@ auditLogRoutes.get("/:resourceType/:resourceId", getResourceAuditLogsController)
 // Get user activity
 auditLogRoutes.get("/user/:userId", getUserActivityController);
 
-export default auditLogRoutes;
+module.exports = auditLogRoutes;

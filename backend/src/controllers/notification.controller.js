@@ -1,9 +1,9 @@
-import Notification from "../models/notification.model.js";
-import { AppError } from "../utils/appError.js";
-import { HTTPSTATUS } from "../config/http.config.js";
+const Notification = require("../models/notification.model");
+const { AppError } = require("../utils/appError");
+const { HTTPSTATUS } = require("../config/http.config");
 
 // Get all notifications for a user
-export const getNotificationsController = async (req, res, next) => {
+const getNotificationsController = async (req, res, next) => {
   try {
     const { userId, workspaceId } = req.user;
     const { read, limit = 20, page = 1 } = req.query;
@@ -39,7 +39,7 @@ export const getNotificationsController = async (req, res, next) => {
 };
 
 // Get unread notification count
-export const getUnreadCountController = async (req, res, next) => {
+const getUnreadCountController = async (req, res, next) => {
   try {
     const { userId } = req.user;
 
@@ -58,7 +58,7 @@ export const getUnreadCountController = async (req, res, next) => {
 };
 
 // Mark notification as read
-export const markAsReadController = async (req, res, next) => {
+const markAsReadController = async (req, res, next) => {
   try {
     const { notificationId } = req.params;
     const { userId } = req.user;
@@ -94,7 +94,7 @@ export const markAsReadController = async (req, res, next) => {
 };
 
 // Mark all notifications as read
-export const markAllAsReadController = async (req, res, next) => {
+const markAllAsReadController = async (req, res, next) => {
   try {
     const { userId, workspaceId } = req.user;
 
@@ -113,7 +113,7 @@ export const markAllAsReadController = async (req, res, next) => {
 };
 
 // Delete a notification
-export const deleteNotificationController = async (req, res, next) => {
+const deleteNotificationController = async (req, res, next) => {
   try {
     const { notificationId } = req.params;
     const { userId } = req.user;
@@ -143,4 +143,12 @@ export const deleteNotificationController = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+module.exports = {
+  getNotificationsController,
+  getUnreadCountController,
+  markAsReadController,
+  markAllAsReadController,
+  deleteNotificationController,
 };

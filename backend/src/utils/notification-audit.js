@@ -1,10 +1,10 @@
-import Notification from "../models/notification.model.js";
-import AuditLog from "../models/auditlog.model.js";
+const Notification = require("../models/notification.model");
+const AuditLog = require("../models/auditlog.model");
 
 /**
  * Create a notification
  */
-export const createNotification = async (notificationData) => {
+const createNotification = async (notificationData) => {
   try {
     const notification = new Notification(notificationData);
     await notification.save();
@@ -17,7 +17,7 @@ export const createNotification = async (notificationData) => {
 /**
  * Create an audit log
  */
-export const createAuditLog = async (auditData) => {
+const createAuditLog = async (auditData) => {
   try {
     const auditLog = new AuditLog(auditData);
     await auditLog.save();
@@ -30,7 +30,7 @@ export const createAuditLog = async (auditData) => {
 /**
  * Notify task assignment
  */
-export const notifyTaskAssignment = async (
+const notifyTaskAssignment = async (
   taskId,
   assignedUserId,
   assignedByUserId,
@@ -52,7 +52,7 @@ export const notifyTaskAssignment = async (
 /**
  * Notify task status change
  */
-export const notifyTaskStatusChange = async (
+const notifyTaskStatusChange = async (
   taskId,
   assignedUserId,
   changedByUserId,
@@ -76,7 +76,7 @@ export const notifyTaskStatusChange = async (
 /**
  * Notify task completion
  */
-export const notifyTaskCompletion = async (
+const notifyTaskCompletion = async (
   taskId,
   assignedUserId,
   workspaceId,
@@ -98,7 +98,7 @@ export const notifyTaskCompletion = async (
 /**
  * Notify task overdue
  */
-export const notifyTaskOverdue = async (
+const notifyTaskOverdue = async (
   taskId,
   assignedUserId,
   workspaceId,
@@ -119,7 +119,7 @@ export const notifyTaskOverdue = async (
 /**
  * Notify comment mention
  */
-export const notifyCommentMention = async (
+const notifyCommentMention = async (
   commentId,
   mentionedUserId,
   mentionedByUserId,
@@ -141,7 +141,7 @@ export const notifyCommentMention = async (
 /**
  * Notify member added
  */
-export const notifyMemberAdded = async (
+const notifyMemberAdded = async (
   workspaceId,
   newMemberId,
   addedByUserId
@@ -161,7 +161,7 @@ export const notifyMemberAdded = async (
 /**
  * Log audit trail for create action
  */
-export const logAuditCreate = async (
+const logAuditCreate = async (
   userId,
   workspaceId,
   resourceType,
@@ -184,7 +184,7 @@ export const logAuditCreate = async (
 /**
  * Log audit trail for update action
  */
-export const logAuditUpdate = async (
+const logAuditUpdate = async (
   userId,
   workspaceId,
   resourceType,
@@ -208,7 +208,7 @@ export const logAuditUpdate = async (
 /**
  * Log audit trail for delete action
  */
-export const logAuditDelete = async (
+const logAuditDelete = async (
   userId,
   workspaceId,
   resourceType,
@@ -231,7 +231,7 @@ export const logAuditDelete = async (
 /**
  * Log audit trail for login action
  */
-export const logAuditLogin = async (userId, workspaceId, ipAddress) => {
+const logAuditLogin = async (userId, workspaceId, ipAddress) => {
   return createAuditLog({
     userId,
     workspaceId,
@@ -241,4 +241,19 @@ export const logAuditLogin = async (userId, workspaceId, ipAddress) => {
     ipAddress,
     status: "SUCCESS",
   });
+};
+
+module.exports = {
+  createNotification,
+  createAuditLog,
+  notifyTaskAssignment,
+  notifyTaskStatusChange,
+  notifyTaskCompletion,
+  notifyTaskOverdue,
+  notifyCommentMention,
+  notifyMemberAdded,
+  logAuditCreate,
+  logAuditUpdate,
+  logAuditDelete,
+  logAuditLogin,
 };

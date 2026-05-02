@@ -1,10 +1,10 @@
-import TimeLog from "../models/timelog.model.js";
-import Task from "../models/task.model.js";
-import { AppError } from "../utils/appError.js";
-import { HTTPSTATUS } from "../config/http.config.js";
+const TimeLog = require("../models/timelog.model");
+const Task = require("../models/task.model");
+const { AppError } = require("../utils/appError");
+const { HTTPSTATUS } = require("../config/http.config");
 
 // Add time log
-export const addTimeLogController = async (req, res, next) => {
+const addTimeLogController = async (req, res, next) => {
   try {
     const { taskId, projectId } = req.params;
     const { duration, description, date } = req.body;
@@ -51,7 +51,7 @@ export const addTimeLogController = async (req, res, next) => {
 };
 
 // Get time logs for a task
-export const getTimeLogsByTaskController = async (req, res, next) => {
+const getTimeLogsByTaskController = async (req, res, next) => {
   try {
     const { taskId } = req.params;
     const { userId, workspaceId } = req.user;
@@ -94,7 +94,7 @@ export const getTimeLogsByTaskController = async (req, res, next) => {
 };
 
 // Get time logs for a project
-export const getTimeLogsByProjectController = async (req, res, next) => {
+const getTimeLogsByProjectController = async (req, res, next) => {
   try {
     const { projectId } = req.params;
     const { userId, workspaceId } = req.user;
@@ -145,7 +145,7 @@ export const getTimeLogsByProjectController = async (req, res, next) => {
 };
 
 // Get time logs by user
-export const getTimeLogsByUserController = async (req, res, next) => {
+const getTimeLogsByUserController = async (req, res, next) => {
   try {
     const { workspaceId } = req.user;
     const { startDate, endDate, limit = 50, page = 1 } = req.query;
@@ -195,7 +195,7 @@ export const getTimeLogsByUserController = async (req, res, next) => {
 };
 
 // Update time log
-export const updateTimeLogController = async (req, res, next) => {
+const updateTimeLogController = async (req, res, next) => {
   try {
     const { timeLogId } = req.params;
     const { duration, description } = req.body;
@@ -234,7 +234,7 @@ export const updateTimeLogController = async (req, res, next) => {
 };
 
 // Delete time log
-export const deleteTimeLogController = async (req, res, next) => {
+const deleteTimeLogController = async (req, res, next) => {
   try {
     const { timeLogId } = req.params;
     const { userId } = req.user;
@@ -265,4 +265,13 @@ export const deleteTimeLogController = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+module.exports = {
+  addTimeLogController,
+  getTimeLogsByTaskController,
+  getTimeLogsByProjectController,
+  getTimeLogsByUserController,
+  updateTimeLogController,
+  deleteTimeLogController,
 };

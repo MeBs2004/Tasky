@@ -1,13 +1,13 @@
-import express from "express";
-import {
+const { Router } = require("express");
+const {
   getNotificationsController,
   getUnreadCountController,
   markAsReadController,
   markAllAsReadController,
   deleteNotificationController,
-} from "../controllers/notification.controller.js";
+} = require("../controllers/notification.controller");
 
-const notificationRoutes = express.Router();
+const notificationRoutes = Router();
 
 // Get all notifications
 notificationRoutes.get("/", getNotificationsController);
@@ -24,4 +24,4 @@ notificationRoutes.put("/all/read", markAllAsReadController);
 // Delete notification
 notificationRoutes.delete("/:notificationId/delete", deleteNotificationController);
 
-export default notificationRoutes;
+module.exports = notificationRoutes;
